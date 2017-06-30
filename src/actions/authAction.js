@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-
+import database from '../api/Firebase';
 export const CREATE_USER_REQUEST 	= 'create_user_request';
 export const CREATE_USER_SUCCESS 	= 'create_user_success';
 export const CREATE_USER_FAIL 		= 'create_user_fail';
@@ -15,6 +15,8 @@ export const GET_PROFILE_FAIL 		= 'get_profile_fail';
 export const UPDATE_PROFILE_REQUEST = 'update_profile_request';
 export const UPDATE_PROFILE_SUCCESS = 'update_profile_success';
 export const UPDATE_PROFILE_FAIL 	= 'update_profile_FAIL';
+
+
 
 export function register(email, password, username, callback1, callback2) {
 	return dispatch => {
@@ -146,8 +148,10 @@ export function updateProfile(profile, callback) {
 			type: UPDATE_PROFILE_REQUEST
 		})
 		const user = firebase.auth().currentUser;
+		
 		user.updateProfile(profile)
 		.then(() => {
+			updateUsernameOfComments(user.uid, profile);
 			callback();
 			dispatch({
 				type: UPDATE_PROFILE_SUCCESS,
@@ -159,4 +163,16 @@ export function updateProfile(profile, callback) {
 			})
 		});
 	}
+}
+
+
+function updateUsernameOfComments(uid, profile) {
+    database.ref('userComments/' + uid).once('value').then(snapshot => {
+        const userComments = snapshot.val();
+        Object.keys(snapshot.val()).forEach(postId => {
+            Object.keys(userComments[postId]).forEach(commentId => {
+                database.ref(`comments/${postId}/${commentId}`).update(profile)
+            });
+        });
+    });
 }

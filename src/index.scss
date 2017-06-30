@@ -30,7 +30,8 @@ body {
 }
 
 
-.post-view, .post-form, .user-form {
+.post-view-comment, .post-view-post, .post-form, .user-form {
+	margin-top: 50px;
 	background: #fff;
 	padding: 30px;
 	border-radius: 5px;
@@ -95,8 +96,8 @@ body {
 		PostView Component 
 **********************************/
 
-.post-view {
-	margin: 0 auto;
+.post-view-post {
+	
 	.post-detail p {
 		margin-top: 20px;
 	}
@@ -111,6 +112,14 @@ body {
 	}
 }
 
+.comments {
+	margin-top: 40px;
+	.comment {
+		font-size: 1rem;
+		padding: 15px;
+		border-bottom: 1px solid rgba(0,0,0,.085);
+	}
+}
 
 /*********************************
 		PostForm Component 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field, Form} from 'redux-form';
-import {renderInputField, renderTextareaField} from './form';
+import {renderInputField, renderTextareaField} from './forms';
 
 const PostForm = (props) => {
 	const {onSubmit, formType} = props;
@@ -17,6 +17,7 @@ const PostForm = (props) => {
 			<Field 
 				label="Post Content"
 				name="content"
+				rows="10"
 				placeholder="Enter Post Content"
 				component={renderTextareaField}
 			/>

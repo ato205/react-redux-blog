@@ -39,7 +39,7 @@ export default function(state = initialState, action) {
 			});
 		case LOGOUT_USER_SUCCESS:
 			localStorage.setItem("isAuthenticated", false);
-			return Object.assign({}, state, initialState);
+			return Object.assign({}, initialState);
 		case GET_PROFILE_SUCCESS:
 			return Object.assign({}, state, {
 				user: action.payload.displayName

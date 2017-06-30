@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {createPost} from '../../actions/postAction';
-import {validatePostForm as validate} from '../../components/form';
+import {validatePostForm as validate} from '../../components/forms';
 import {showAlert} from '../../components/alert';
 import PostForm from '../../components/postForm';
 
@@ -10,6 +10,7 @@ class NewPost extends Component {
 
 	onSubmit(values) {
 		const post = {...values, uid: this.props.auth.uid};
+		console.log(post);
 		this.props.createPost(post, () => { 
 			this.props.history.push("/");
 			showAlert('The post has been successfully created');

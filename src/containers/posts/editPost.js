@@ -6,7 +6,7 @@ import {reduxForm} from 'redux-form';
 import _ from 'lodash';
 import firebase from 'firebase';
 import {fetchPost, deletePost, editPost} from '../../actions/postAction';
-import {validatePostForm as validate} from '../../components/form';
+import {validatePostForm as validate} from '../../components/forms';
 import {showAlert} from '../../components/alert';
 import PostForm from '../../components/postForm';
 import Loader from '../../components/loader';

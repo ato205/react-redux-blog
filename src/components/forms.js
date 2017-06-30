@@ -23,7 +23,7 @@ export function renderTextareaField(field) {
 		<div className="form-group">
 			<label>{field.label}</label>
 			<textarea 
-				cols="30" rows="10" 
+				cols="30" rows={field.rows} 
 				className="form-control"
 				placeholder={field.placeholder}
 				{...field.input}
@@ -74,32 +74,32 @@ export function renderUserForm(formType, that, onSubmit, btn) {
 	);
 }
 
-export function renderPostForm(that, onSubmit, btn1, btn2, onClick) {
-	const {handleSubmit} = that.props;
+// export function renderPostForm(that, onSubmit, btn1, btn2, onClick) {
+// 	const {handleSubmit} = that.props;
 
-	return (
-		<Form onSubmit={handleSubmit(onSubmit.bind(that))}>
-			<Field 
-				label="Title"
-				name="title"
-				type="text"
-				placeholder="Enter Post Title"
-				component={renderInputField}
-			/>
+// 	return (
+// 		<Form onSubmit={handleSubmit(onSubmit.bind(that))}>
+// 			<Field 
+// 				label="Title"
+// 				name="title"
+// 				type="text"
+// 				placeholder="Enter Post Title"
+// 				component={renderInputField}
+// 			/>
 			
-			<Field 
-				label="Post Content"
-				name="content"
-				placeholder="Enter Post Content"
-				component={renderTextareaField}
-			/>
-			<div className="form-buttons">
-				<button type="submit" className="btn btn-primary">{btn1}</button>
-				<button type="button" className="btn btn-secondary" onClick={onClick}>{btn2}</button>
-			</div>
-		</Form>
-	);
-}
+// 			<Field 
+// 				label="Post Content"
+// 				name="content"
+// 				placeholder="Enter Post Content"
+// 				component={renderTextareaField}
+// 			/>
+// 			<div className="form-buttons">
+// 				<button type="submit" className="btn btn-primary">{btn1}</button>
+// 				<button type="button" className="btn btn-secondary" onClick={onClick}>{btn2}</button>
+// 			</div>
+// 		</Form>
+// 	);
+// }
 
 export function validatePostForm(values) {
 	const errors = {};

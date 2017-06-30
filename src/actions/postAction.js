@@ -1,5 +1,6 @@
 import database from '../api/Firebase';
 import firebase from 'firebase';
+
 export const FETCH_POSTS_REQUEST    = 'fetch_posts_request';
 export const FETCH_POSTS_SUCCESS    = 'fetch_posts_success';
 export const FETCH_POSTS_FAIL       = 'fetch_posts_fail';
@@ -11,6 +12,7 @@ export const DELETE_POST_REQUEST    = 'delete_post_request';
 export const DELETE_POST_SUCCESS    = 'delete_post_success';
 export const DELETE_POST_FAIL       = 'delete_post_fail';
 export const LOAD_MORE_SUCCESS      = 'load_more_success';
+export const ADD_COMMENT_SUCCESS    = 'add_comment_success';
 
 const loadMoreLimit = 2;
 
@@ -19,7 +21,7 @@ export function fetchPosts() {
         dispatch({
             type: FETCH_POSTS_REQUEST
         })
-        database.ref('posts').limitToLast(loadMoreLimit).on('value', snapshot => {
+        database.ref('posts').limitToLast(loadMoreLimit).once('value', snapshot => {
             dispatch({
                 type: FETCH_POSTS_SUCCESS,
                 payload: snapshot.val()
@@ -49,13 +51,13 @@ export function fetchPost(id) {
         dispatch({
             type: FETCH_POST_REQUEST
         })
-        database.ref('posts').child(id).on('value', snapshot => {
+        database.ref('posts').child(id).once('value', snapshot => {
             // dispatch({
             //     type: FETCH_POST_SUCCESS,
             //     payload: snapshot.val(),
             //     id
             // });
-            if (snapshot.val() != null) dispatch(getPostCreator(snapshot.val(), id));
+            if (snapshot.val() != null) dispatch(getPostCreatorAndComments(snapshot.val(), id));
         }, error => {
             dispatch({
                 type: FETCH_POST_FAIL,
@@ -65,16 +67,38 @@ export function fetchPost(id) {
     }
 }
 
-export function getPostCreator(post, postId) {
-    return dispatch => database.ref('users/' +  post.uid).on('value', snapshot => {
-        dispatch({
-            type: FETCH_POST_SUCCESS,
-            post: post,
-            id  : postId,
-            user: snapshot.val().displayName
+// export function getPostCreator(post, postId) {
+//     return dispatch => database.ref('users/' +  post.uid).once('value', snapshot => {
+//         dispatch({
+//             type: FETCH_POST_SUCCESS,
+//             post: post,
+//             id  : postId,
+//             user: snapshot.val().displayName
+//         })
+//     });
+// }
+
+export function getPostCreatorAndComments(post, postId) {
+    return dispatch => {
+        Promise.all([
+            database.ref('users/' + post.uid).once('value'),
+            database.ref('comments/' + postId).once('value')
+        ]).then((snaps) => {
+            const user = snaps[0].val();
+            const comments = snaps[1].val();
+            dispatch({
+                type: FETCH_POST_SUCCESS,
+                post: post,
+                id: postId,
+                user: user.displayName,
+                comments: comments
+            })
         })
-    });
+    }
 }
+
+
+
 
 export function createPost(post, callback) {
     let val = post;
@@ -106,5 +130,26 @@ export function deletePost(id, callback) {
 
 export function editPost(id, post) {
     return dispatch => database.ref('posts/' + id).update(post);
+}
+
+
+export function addComment(comment, postId) {
+    let data = comment;
+    const databaseRef = database.ref('comments/'+ postId);
+    const commentId = databaseRef.push().key;
+    data['createdAt'] = firebase.database.ServerValue.TIMESTAMP;
+    
+    return dispatch => {
+        databaseRef.child(commentId).set(data).then(() => {
+            dispatch({
+                type: ADD_COMMENT_SUCCESS,
+                payload: comment,
+                id: commentId
+            })
+        });
+        database.ref('userComments/'+comment.uid + '/' + postId).update({
+            [commentId]: true
+        });
+    }
 }
 

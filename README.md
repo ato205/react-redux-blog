@@ -1,7 +1,25 @@
-## React Redux Blog with Firebase
+# React Redux Blog with Firebase
 
-### Structure
+A simple blog written in React Redux with Firebase Authentication and Realtime Database
 
+Live demo: https://react-redux-simpleblog.herokuapp.com/
+
+## Tools
+Tools used in this ReactJS Project
+* React
+* React Router
+* Redux
+* Redux Form
+* Redux Thunk
+* Bootstrap
+* SASS
+* [Halogen](https://github.com/yuanyan/halogen)- A collection of loading spinners with React.js
+* [React sAlert](https://github.com/juliancwirko/react-s-alert) - Alerts / Notifications for React with rich configuration options 
+
+
+## Structure
+
+```
 ├── actions
 │   ├── authAction.js
 │   └── postAction.js
@@ -34,3 +52,4 @@
 ├── index.css
 ├── index.js
 ├── index.scss
+```
