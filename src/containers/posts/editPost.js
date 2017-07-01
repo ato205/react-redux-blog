@@ -4,7 +4,6 @@ import {compose} from 'redux';
 import {Link} from 'react-router-dom';
 import {reduxForm} from 'redux-form';
 import _ from 'lodash';
-import firebase from 'firebase';
 import {fetchPost, deletePost, editPost} from '../../actions/postAction';
 import {validatePostForm as validate} from '../../components/forms';
 import {showAlert} from '../../components/alert';

@@ -41,6 +41,7 @@ ReactDOM.render(
 						<RequireAuth path="/posts/create" component={NewPost} redirectCheck={REDIRECT_IF_GUEST} />
 						<RequireAuth path="/posts/edit/:id" component={EditPost} redirectCheck={REDIRECT_IF_GUEST} />
 						<Route path="/posts/:id" component={ShowPost}></Route>
+						<Route path="/posts" component={PostIndex}></Route>	
 						<Route path="/" component={PostIndex}></Route>	
 					</Switch>
 				</div>

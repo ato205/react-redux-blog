@@ -132,3 +132,13 @@ body {
 	}
 }
 
+/*********************************
+		PostIndex Page
+**********************************/
+
+.pagination {
+	margin: 30px 0;
+	li:not(.disabled) {
+		cursor: pointer;
+	}
+}

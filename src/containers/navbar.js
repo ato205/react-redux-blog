@@ -56,13 +56,13 @@ class Navbar extends Component {
 					<button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navigation">
 						<span className="navbar-toggler-icon"></span>
 					</button>
-					<NavLink to="/" className="navbar-brand">Simple Blog</NavLink>
+					<NavLink to="/posts" className="navbar-brand">Simple Blog</NavLink>
 					<div className="collapse navbar-collapse" id="navigation">
 						<ul className="navbar-nav">
 							<li className="nav-item">
 								<NavLink 
 									exact={true} activeClassName="active" 
-									to="/" className="nav-link"><i className="fa fa-home"></i>Home</NavLink>
+									to="/posts" className="nav-link"><i className="fa fa-home"></i>Home</NavLink>
 							</li>
 							<li className="nav-item">
 								<NavLink 

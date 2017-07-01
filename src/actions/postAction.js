@@ -21,7 +21,7 @@ export function fetchPosts() {
         dispatch({
             type: FETCH_POSTS_REQUEST
         })
-        database.ref('posts').limitToLast(loadMoreLimit).once('value', snapshot => {
+        database.ref('posts').once('value', snapshot => {
             dispatch({
                 type: FETCH_POSTS_SUCCESS,
                 payload: snapshot.val()
@@ -52,11 +52,6 @@ export function fetchPost(id) {
             type: FETCH_POST_REQUEST
         })
         database.ref('posts').child(id).once('value', snapshot => {
-            // dispatch({
-            //     type: FETCH_POST_SUCCESS,
-            //     payload: snapshot.val(),
-            //     id
-            // });
             if (snapshot.val() != null) dispatch(getPostCreatorAndComments(snapshot.val(), id));
         }, error => {
             dispatch({
@@ -67,16 +62,6 @@ export function fetchPost(id) {
     }
 }
 
-// export function getPostCreator(post, postId) {
-//     return dispatch => database.ref('users/' +  post.uid).once('value', snapshot => {
-//         dispatch({
-//             type: FETCH_POST_SUCCESS,
-//             post: post,
-//             id  : postId,
-//             user: snapshot.val().displayName
-//         })
-//     });
-// }
 
 export function getPostCreatorAndComments(post, postId) {
     return dispatch => {
@@ -96,7 +81,6 @@ export function getPostCreatorAndComments(post, postId) {
         })
     }
 }
-
 
 
 

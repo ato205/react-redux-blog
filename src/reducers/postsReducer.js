@@ -14,9 +14,7 @@ import {
 
 
 const initialState = {
-	list: null,
-	currentPost: null, 
-	message: null,
+	list: [],
 	isFetched: false
 }
 
