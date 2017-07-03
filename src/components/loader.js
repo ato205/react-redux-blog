@@ -3,7 +3,7 @@ import Halogen from 'halogen';
 
 const Loader = (props) => {
 	return (
-		<div className="Loader">
+		<div className="loader">
 			<Halogen.PulseLoader color="#26A65B" size="10px" />
 		</div>
 	);

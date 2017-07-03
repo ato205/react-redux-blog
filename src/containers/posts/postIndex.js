@@ -123,13 +123,11 @@ class PostIndex extends Component {
 		const endIndex = this.state.currentPage * postsPerPage;
 		const startIndex = endIndex - postsPerPage;
 		const postsToShow = _.slice(this.props.posts, startIndex, endIndex);
-
+		console.log(this.props.posts);
 		return _.map(postsToShow, (post, key) => {
 			return <Post 
-						key={key} id={post.id}
-						title={post.title}
-						content={post.content}
-						createdAt={post.createdAt}
+						key={key}
+						post={post}
 					/>
 			});
 	}
@@ -138,7 +136,7 @@ class PostIndex extends Component {
 	const {posts, isFetched} = this.props;
 
 
-		if (!posts && !isFetched)
+		if (!isFetched)
 			return <Loader />
 		
 		if (!posts.length && isFetched)
@@ -150,7 +148,7 @@ class PostIndex extends Component {
 
 		return (
 			<div className="post-index">
-				<div className="list-group posts">
+				<div className="posts">
 					{this.renderPosts()}
 				</div>
 

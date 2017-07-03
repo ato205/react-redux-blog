@@ -56,6 +56,11 @@ body {
 	color: $errorColor;
 }
 
+
+.loader {
+	text-align: center;
+}
+
 /*********************************
 		Navbar component 
 **********************************/
@@ -77,14 +82,30 @@ body {
 			Post Component 
 **********************************/
 .post {
-	margin: 30px auto;
+	position: relative;
+	background: #fff;
+	border-radius: 5px;
+	height: 200px;
+	margin: 20px auto;
+	border: 1px solid rgba(0, 0, 0, 0.125);
 	.post-title {
+		font-size: 1.8rem;
+		font-family: $titleFont;
 		color: #000;
-		
+		margin-top: 20px;
+		overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    padding-bottom: 5px;
 	}
 	.post-content {
 		margin-top: 10px;
 		margin-bottom: 10px;
+	}
+	.post-info {
+		position: absolute;
+		bottom: 15px;
+		left: 20px;
 	}
 }
 
@@ -118,6 +139,14 @@ body {
 		font-size: 1rem;
 		padding: 15px;
 		border-bottom: 1px solid rgba(0,0,0,.085);
+	}
+	.comment-user {
+		font-weight: bold;
+	}
+	.comment-user span {
+		font-weight: normal;
+		font-size: 0.8rem;
+		margin-left: 5px;
 	}
 }
 

@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PostView = (props) => {
 	const {post} = props;
 	const date = new Date(post.createdAt);
 	const formatedDate = date.toJSON();
+
 	return (
 		<div className="post-detail">
 			<h2 className="post-title">{post.title}</h2>
@@ -20,3 +22,7 @@ const PostView = (props) => {
 }
 
 export default PostView;
+
+PostView.propTypes = {
+	post: PropTypes.object.isRequired
+};

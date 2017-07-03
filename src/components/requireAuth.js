@@ -4,7 +4,7 @@ import {Redirect, Route} from 'react-router-dom';
 export const REDIRECT_IF_GUEST = 'redirect_if_guest';
 export const REDIRECT_IF_AUTHENTICATED = 'redirect_if_authenticated';
 
-const RequireAuth = ({ component: Component, redirectCheck: redirectCheck,...rest }) => (
+const RequireAuth = ({ component: Component, redirectCheck: redirectCheck, ...rest }) => (
 	(redirectCheck === REDIRECT_IF_AUTHENTICATED) ? (	
 		<Route {...rest} render={props => (
 		    (localStorage.getItem("isAuthenticated") == 'false') ? (

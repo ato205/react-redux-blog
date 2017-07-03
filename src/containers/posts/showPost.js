@@ -52,7 +52,7 @@ class ShowPost extends Component {
 	renderComments() {
 		const {comments} = this.props.post;
 		return _.map(comments, (item, key) => {
-			return <Comment user={item.user} message={item.message} key={key} />;
+			return <Comment comment={item} key={key} />;
 		});
 	}
 
@@ -67,7 +67,7 @@ class ShowPost extends Component {
 	render() {
 		const {post} = this.props;
 
-		if (_.isEmpty(post))  
+		if (!post.isFetched)  
 			return <Loader />
 
 		return (

@@ -34,20 +34,22 @@ class EditPost extends Component {
 
 	renderButtons(post) {
 		if (this.props.auth.uid === this.props.post.uid)
-			return (<div className="top-buttons text-right">
-						<Link 
-							to={`/posts/${this.props.post.id}`} 
-							className="btn btn-primary"><i className="fa fa-image"></i>View</Link>
-						<button 
-							className="btn btn-danger" 
-							onClick={this.onDeletePost.bind(this, post.id)}><i className="fa fa-remove"></i>Delete</button>
-					</div>);
+			return (
+				<div className="top-buttons text-right">
+					<Link 
+						to={`/posts/${this.props.post.id}`} 
+						className="btn btn-primary"><i className="fa fa-image"></i>View</Link>
+					<button 
+						className="btn btn-danger" 
+						onClick={this.onDeletePost.bind(this, post.id)}><i className="fa fa-remove"></i>Delete</button>
+				</div>
+			);
 	}
 
 	render() {
 		const {handleSubmit, post} = this.props;
 		
-		if (_.isEmpty(post))
+		if (!post.isFetched)
 			return <Loader />
 		
 		return (

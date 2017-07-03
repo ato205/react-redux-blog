@@ -40,7 +40,7 @@ export default function(state = initialState, action) {
 			return Object.assign({}, state, {
 				list: _.concat(state.list, posts),
 				isFetched: true
-			});		
+			});
 		default:
 			return state;
 	}

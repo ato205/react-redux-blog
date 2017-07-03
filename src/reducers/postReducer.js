@@ -1,4 +1,5 @@
 import {
+	FETCH_POST_REQUEST,
 	FETCH_POST_SUCCESS,
 	FETCH_POST_FAIL,
 	GET_POST_CREATOR_SUCCESS,
@@ -12,16 +13,23 @@ const initialState = {
 	id: null,
 	uid: null,
 	user: null,
-	createdAt: null
+	createdAt: null,
+	isFetched: false
 }
 
 
 export default function(state = initialState, action) {
 	switch(action.type) {
+		case FETCH_POST_REQUEST:
+			return Object.assign({}, {isFetched: false});
 		case FETCH_POST_SUCCESS:
-			return Object.assign({}, state, {...action.post, id: action.id, user: action.user, comments: action.comments});
+			return Object.assign({}, state, {...action.post, 
+				id: action.id, 
+				user: action.user, 
+				comments: action.comments, 
+				isFetched: true});
 		case ADD_COMMENT_SUCCESS:
-			console.log(Object.assign({}, state));
+		console.log(action.payload);
 			return Object.assign({}, state, {
 				comments: {...state.comments, [action.id]: action.payload}
 			});

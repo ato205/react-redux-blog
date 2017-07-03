@@ -14,7 +14,7 @@ export const DELETE_POST_FAIL       = 'delete_post_fail';
 export const LOAD_MORE_SUCCESS      = 'load_more_success';
 export const ADD_COMMENT_SUCCESS    = 'add_comment_success';
 
-const loadMoreLimit = 2;
+const loadMoreLimit = 5;
 
 export function fetchPosts() {
     return dispatch => {
@@ -34,6 +34,7 @@ export function fetchPosts() {
         });
     };
 }
+
 
 export function loadMore(lastPostId) {
     return dispatch => {
@@ -122,7 +123,7 @@ export function addComment(comment, postId) {
     const databaseRef = database.ref('comments/'+ postId);
     const commentId = databaseRef.push().key;
     data['createdAt'] = firebase.database.ServerValue.TIMESTAMP;
-    
+    console.log(firebase.database.ServerValue.TIMESTAMP);
     return dispatch => {
         databaseRef.child(commentId).set(data).then(() => {
             dispatch({
@@ -137,3 +138,13 @@ export function addComment(comment, postId) {
     }
 }
 
+export function getPostComments(postId) {
+    return dispatch => {
+        database.ref('comments/' + postId).once('value')
+            .then((snapshot) => {
+            dispatch({
+                
+            })
+        })
+    }
+}

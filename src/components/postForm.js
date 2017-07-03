@@ -1,5 +1,6 @@
 import React from 'react';
 import {Field, Form} from 'redux-form';
+import PropTypes from 'prop-types';
 import {renderInputField, renderTextareaField} from './forms';
 
 const PostForm = (props) => {
@@ -30,3 +31,8 @@ const PostForm = (props) => {
 }
 
 export default PostForm;
+
+PostForm.propTyps = {
+	onSubmit: PropTypes.func.isRequired,
+	formType: PropTypes.oneOf(['edit'])
+};
