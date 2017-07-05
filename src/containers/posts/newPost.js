@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {createPost} from '../../actions/postAction';
-import {validatePostForm as validate} from '../../components/forms';
+import {validatePostForm as validate} from '../../components/form/forms';
 import {showAlert} from '../../components/alert';
-import PostForm from '../../components/postForm';
+import PostForm from '../../components/form/postForm';
 
 class NewPost extends Component {
 

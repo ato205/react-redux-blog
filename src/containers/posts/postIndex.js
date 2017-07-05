@@ -3,8 +3,10 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 import queryString from 'query-string';
 import {fetchPosts, deletePost} from '../../actions/postAction';
-import Post from '../../components/post';
+import Post from '../../components/posts/post';
 import Loader from '../../components/loader';
+import SearchBar from '../../components/searchBar';
+import Pagination from '../../components/pagination';
 
 
 class PostIndex extends Component {
@@ -13,7 +15,7 @@ class PostIndex extends Component {
 		super(props);
 		this.state = {
 			currentPage: 1,
-			postsPerPage: 5
+			postsPerPage: 2
 		}
 	}
 
@@ -37,8 +39,7 @@ class PostIndex extends Component {
 		this.props.history.push(`/posts?page=${e.target.id}`);
 	}
 
-	handlePrevNextClick(pageNumbers, e) {;
-		const {currentPage} = this.state;
+	handlePrevNextClick(e, pageNumbers, currentPage) {
 		const lastPage = _.last(pageNumbers);
 
 		if (currentPage > 1 && e.target.id === 'Prev') {
@@ -53,77 +54,13 @@ class PostIndex extends Component {
 		}
 	}
 
-	
-	renderPageNumbers(pageNumbers) {
-		const lastPage = _.last(pageNumbers);
-		const {currentPage} = this.state;
-		let start = 1, end = lastPage;
-
-		if (pageNumbers.length < 4) {
-			start = 1;
-			end = lastPage;
-		}
-		else if (currentPage == 1) {
-			start = 1;
-			end = 3;
-		}
-		else if (currentPage == 2) {
-			start = 1;
-			end = 4; 
-		}
-		else if (lastPage - currentPage == 1) {
-			start = lastPage - 3;
-			end = lastPage;
-		}
-		else if (lastPage == currentPage) {
-			start = lastPage - 2;
-			end = lastPage;
-		}
-		else {
-			start = currentPage - 2;
-			end = Number(currentPage) + 2;
-		}
-
-		const pages = _.slice(pageNumbers, start-1, end);
-		const prevBtnClassName = (currentPage == 1) ? "page-item disabled" : "page-item";
-		const nextBtnClassName = (currentPage == lastPage) ? " page-item disabled" : "page-item";
-
-		return (
-			<ul className="pagination justify-content-center">
-				<li className={prevBtnClassName}>
-			        <a className="page-link" aria-label="Previous"
-			        	id="Prev" 
-			        	onClick={this.handlePrevNextClick.bind(this, pages)} 
-			        >&laquo;</a>
-			    </li>
-				{pages.map(number => {
-					return (
-						<li className={(number == currentPage) ? "page-item active" : "page-item"} key={number}>
-							<a 
-								className="page-link"
-								id={number}
-								onClick={this.handlePaginationClick.bind(this)}
-							>{number}</a>
-						</li>
-					);
-				})}
-				<li className={nextBtnClassName}>
-			        <a className="page-link" aria-label="Next"
-			        	id="Next"
-			        	onClick={this.handlePrevNextClick.bind(this, pages)} 
-			        >&raquo;</a>
-			    </li>
-			</ul>
-		);
-	}
-	
 
 	renderPosts() {
 		const {currentPage, postsPerPage} = this.state;
 		const endIndex = this.state.currentPage * postsPerPage;
 		const startIndex = endIndex - postsPerPage;
 		const postsToShow = _.slice(this.props.posts, startIndex, endIndex);
-		console.log(this.props.posts);
+		
 		return _.map(postsToShow, (post, key) => {
 			return <Post 
 						key={key}
@@ -133,8 +70,7 @@ class PostIndex extends Component {
 	}
 
 	render() {
-	const {posts, isFetched} = this.props;
-
+		const {posts, isFetched} = this.props;		
 
 		if (!isFetched)
 			return <Loader />
@@ -147,18 +83,21 @@ class PostIndex extends Component {
 			pageNumbers.push(i);
 
 		return (
-			<div className="post-index">
-				<div className="posts">
-					{this.renderPosts()}
-				</div>
 
-				<div className="pageNumbers text-center">
-					{this.renderPageNumbers(pageNumbers)}
-				</div>
-				
+				<div className="post-index">
+					<div className="posts">
+						{this.renderPosts()}
+					</div>
 
-			</div>
-			
+					<div className="pageNumbers text-center">
+						<Pagination 
+							currentPage={this.state.currentPage} 
+							pageNumbers={pageNumbers} 
+							handlePrevNextClick={this.handlePrevNextClick.bind(this)}
+							handlePaginationClick={this.handlePaginationClick.bind(this)}
+						/>
+					</div>
+				</div>
 		);
 	}
 }

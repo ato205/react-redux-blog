@@ -5,9 +5,9 @@ import {Link} from 'react-router-dom';
 import {reduxForm} from 'redux-form';
 import _ from 'lodash';
 import {fetchPost, deletePost, editPost} from '../../actions/postAction';
-import {validatePostForm as validate} from '../../components/forms';
+import {validatePostForm as validate} from '../../components/form/forms';
 import {showAlert} from '../../components/alert';
-import PostForm from '../../components/postForm';
+import PostForm from '../../components/form/postForm';
 import Loader from '../../components/loader';
 
 class EditPost extends Component {

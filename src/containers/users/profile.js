@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Field, Form, reduxForm} from 'redux-form';
 import firebase from 'firebase';
 import {getProfile, updateProfile} from '../../actions/authAction';
-import {renderInputField} from '../../components/forms';
+import {renderInputField} from '../../components/form/forms';
 import {showAlert} from '../../components/alert';
 
 

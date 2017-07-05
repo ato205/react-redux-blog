@@ -3,8 +3,8 @@ body {
   background: #f7f7f7;
   margin: 0;
   padding: 0;
-  font-size: 1.1rem;
-  line-height: 2rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   letter-spacing: 0.2px; }
   body h3, body h2 {
     font-family: "Oswald", sans-serif; }
@@ -61,11 +61,12 @@ body {
   position: relative;
   background: #fff;
   border-radius: 5px;
-  height: 200px;
-  margin: 20px auto;
-  border: 1px solid rgba(0, 0, 0, 0.125); }
+  height: 170px;
+  margin: 15px auto;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0 20px; }
   .post .post-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-family: "Oswald", sans-serif;
     color: #000;
     margin-top: 20px;
@@ -121,7 +122,23 @@ body {
 /*********************************
 		PostIndex Page
 **********************************/
+.searchBar {
+  margin: 5px 0 30px 0; }
+
 .pagination {
   margin: 30px 0; }
   .pagination li:not(.disabled) {
     cursor: pointer; }
+
+/*********************************
+		Responsive Breakpoints
+**********************************/
+@media (min-width: 992px) {
+  html {
+    font-size: 105%; } }
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 110%; }
+  .post {
+    height: 180px; } }

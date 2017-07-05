@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, IndexRoute} from 'react-router-dom';
 import Alert from 'react-s-alert';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 
-import configureStore from './components/configureStore';
+import configureStore from './common/configureStore';
 import Navbar from "./containers/navbar";
 import PostIndex from "./containers/posts/postIndex";
+import PostListContainer from "./containers/posts/postListContainer";
 import NewPost from './containers/posts/newPost';
 import ShowPost from './containers/posts/showPost';
 import EditPost from './containers/posts/editPost';
@@ -40,9 +41,8 @@ ReactDOM.render(
 						<RequireAuth path="/users/login" component={Login} redirectCheck={REDIRECT_IF_AUTHENTICATED}/>
 						<RequireAuth path="/posts/create" component={NewPost} redirectCheck={REDIRECT_IF_GUEST} />
 						<RequireAuth path="/posts/edit/:id" component={EditPost} redirectCheck={REDIRECT_IF_GUEST} />
-						<Route path="/posts/:id" component={ShowPost}></Route>
-						<Route path="/posts" component={PostIndex}></Route>	
-						<Route path="/" component={PostIndex}></Route>	
+						<Route path="posts/:id" component={ShowPost}></Route>
+						<Route path="/" component={PostListContainer}></Route>
 					</Switch>
 				</div>
 				<Alert stack={{limit: 3}} />
@@ -50,12 +50,3 @@ ReactDOM.render(
 		</BrowserRouter>
 	</Provider>
 	, document.getElementById('root'));
-
-// <Navbar />
-// <Switch>
-// 	<Route path="/users/register" component={Register}></Route>
-// 	<Route path="/users/login" component={Login}></Route>
-// 	<Route path="/posts/create" component={NewPost}></Route>
-// 	<Route path="/posts/:id" component={ShowPost}></Route>
-// 	<Route path="/" component={PostIndex}></Route>	
-// </Switch>

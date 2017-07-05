@@ -152,6 +152,7 @@ export function updateProfile(profile, callback) {
 		user.updateProfile(profile)
 		.then(() => {
 			updateUsernameOfComments(user.uid, profile);
+			database.ref('users/'+user.uid).update(profile);
 			callback();
 			dispatch({
 				type: UPDATE_PROFILE_SUCCESS,
@@ -171,7 +172,9 @@ function updateUsernameOfComments(uid, profile) {
         const userComments = snapshot.val();
         Object.keys(snapshot.val()).forEach(postId => {
             Object.keys(userComments[postId]).forEach(commentId => {
-                database.ref(`comments/${postId}/${commentId}`).update(profile)
+                database.ref(`comments/${postId}/${commentId}`).update({
+                	user: profile.displayName
+                })
             });
         });
     });

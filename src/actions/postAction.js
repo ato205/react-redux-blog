@@ -14,8 +14,6 @@ export const DELETE_POST_FAIL       = 'delete_post_fail';
 export const LOAD_MORE_SUCCESS      = 'load_more_success';
 export const ADD_COMMENT_SUCCESS    = 'add_comment_success';
 
-const loadMoreLimit = 5;
-
 export function fetchPosts() {
     return dispatch => {
         dispatch({
@@ -35,24 +33,12 @@ export function fetchPosts() {
     };
 }
 
-
-export function loadMore(lastPostId) {
-    return dispatch => {
-        database.ref('posts').endAt(null, lastPostId).limitToLast(loadMoreLimit+1).on('value', snapshot => {
-            dispatch({
-                type: LOAD_MORE_SUCCESS,
-                payload: snapshot.val()
-            })
-        })
-    }
-}
-
 export function fetchPost(id) {
     return dispatch => {
         dispatch({
             type: FETCH_POST_REQUEST
         })
-        database.ref('posts').child(id).once('value', snapshot => {
+        database.ref('posts').child(id).on('value', snapshot => {
             if (snapshot.val() != null) dispatch(getPostCreatorAndComments(snapshot.val(), id));
         }, error => {
             dispatch({
@@ -62,7 +48,6 @@ export function fetchPost(id) {
         });
     }
 }
-
 
 export function getPostCreatorAndComments(post, postId) {
     return dispatch => {
@@ -82,8 +67,6 @@ export function getPostCreatorAndComments(post, postId) {
         })
     }
 }
-
-
 
 export function createPost(post, callback) {
     let val = post;
@@ -117,13 +100,12 @@ export function editPost(id, post) {
     return dispatch => database.ref('posts/' + id).update(post);
 }
 
-
 export function addComment(comment, postId) {
     let data = comment;
     const databaseRef = database.ref('comments/'+ postId);
     const commentId = databaseRef.push().key;
     data['createdAt'] = firebase.database.ServerValue.TIMESTAMP;
-    console.log(firebase.database.ServerValue.TIMESTAMP);
+   
     return dispatch => {
         databaseRef.child(commentId).set(data).then(() => {
             dispatch({
@@ -135,16 +117,5 @@ export function addComment(comment, postId) {
         database.ref('userComments/'+comment.uid + '/' + postId).update({
             [commentId]: true
         });
-    }
-}
-
-export function getPostComments(postId) {
-    return dispatch => {
-        database.ref('comments/' + postId).once('value')
-            .then((snapshot) => {
-            dispatch({
-                
-            })
-        })
     }
 }

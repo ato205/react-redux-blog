@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import {register} from '../../actions/authAction';
-import {validateUserForm as validate, renderUserForm} from '../../components/forms';
+import {validateUserForm as validate, renderUserForm} from '../../components/form/forms';
 import {showAlert} from '../../components/alert';
 
 

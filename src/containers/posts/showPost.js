@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {reduxForm, Field, Form} from 'redux-form';
+import {reduxForm, Field, Form, reset} from 'redux-form';
 import _ from 'lodash';
 import {fetchPost, addComment} from '../../actions/postAction';
-import {renderTextareaField} from '../../components/forms';
-import PostView from '../../components/postView';
-import Comment from '../../components/comment';
+import {renderTextareaField} from '../../components/form/forms';
+import PostView from '../../components/posts/postView';
+import Comment from '../../components/posts/comment';
 import Loader from '../../components/loader';
 
 class ShowPost extends Component {
@@ -112,7 +112,10 @@ function validate(values) {
 	return errors;
 }
 
+const afterSubmit = (result, dispatch) => dispatch(reset('CommentForm'));
+
 export default reduxForm({
 	form: 'CommentForm',
-	validate
+	validate,
+	onSubmitSuccess: afterSubmit
 })(connect(mapStateToProps, mapDispatchToProps)(ShowPost));
