@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch} from 'react-router-dom';
 import _ from 'lodash';
 import Post from '../../components/posts/post';
 import SearchBar from '../../components/searchBar';
@@ -30,7 +30,6 @@ class PostListContainer extends React.Component {
 		
 		this.setState({filteredPosts: filteredPosts, lastIndex: 0});
 		this.props.history.push('/search');
-		console.log(filteredPosts);
 	}
 
 	handleLoadMore() {
@@ -39,7 +38,6 @@ class PostListContainer extends React.Component {
 	}
 
 	renderFilteredPosts(filteredPosts) {
-		console.log(this.state);
 		const posts = _.slice(filteredPosts, 0, this.state.lastIndex + this.state.postsToLoad);
 		return (
 			<div className="post-index">
@@ -76,7 +74,6 @@ class PostListContainer extends React.Component {
 			<div className="index-wrapper">
 
 				<SearchBar onSubmit={this.handleSearchBar.bind(this)}/>
-
 				<Route exact path={`/`} component={PostIndex}></Route>
 				<Route path={`/posts`} component={PostIndex}></Route>
 				<Route path={`/search`} render={() => this.renderFilteredPosts(this.state.filteredPosts)}></Route>

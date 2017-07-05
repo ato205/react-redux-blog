@@ -24,6 +24,7 @@ export class SearchBar extends React.Component {
 				<div className="col-sm-6">
 					<div className="input-group searchBar">
 						<input 
+							ref="searchBar"
 							type="text" 
 							className="form-control" 
 							placeholder="Search for..." 
