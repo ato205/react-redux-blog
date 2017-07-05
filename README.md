@@ -25,20 +25,26 @@ Tools used in this ReactJS Project
 │   └── postAction.js
 ├── api
 │   └── Firebase.js
+├── common
+│   └── configureStore.js
 ├── components
+│   ├── form
+│   │   ├── forms.js
+│   │   └── postForm.js
+│   ├── posts
+│   │   ├── comment.js
+│   │   ├── post.js
+│   │   └── postView.js
 │   ├── alert.js
-│   ├── configureStore.js
-│   ├── form.js
 │   ├── loader.js
-│   ├── post.js
-│   ├── postForm.js
-│   ├── postView.js
+│   ├── pagination.js
 │   └── requireAuth.js
 ├── containers
-│   ├── post
+│   ├── posts
 │   │   ├── editPost.js
 │   │   ├── newPost.js
 │   │   ├── postIndex.js
+│   │   ├── postListContainer.js
 │   │   └── showPost.js
 │   ├── users
 │   │   ├── login.js
